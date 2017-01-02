@@ -8,7 +8,6 @@ var g;
 var b;
 
 function setup() {
-	frameRate(5);
 	createCanvas(750,400);
 
 	var config = createDiv('Options');
@@ -22,19 +21,19 @@ function setup() {
 
 	var rP = createP('Red Value:');
 	config.child(rP);
-	sliderR = createSlider(0, 255, 100, 1);
+	sliderR = createSlider(0, 255, 255, 1);
 	config.child(sliderR);
 
 	
 	var gP = createP('Green Value:');
 	config.child(gP);
-	sliderG = createSlider(0, 255, 100, 1);
+	sliderG = createSlider(0, 255, 255, 1);
 	config.child(sliderG);
 
 	
 	var bP = createP('Blue Value:');
 	config.child(bP);
-	sliderB = createSlider(0, 255, 100, 1);
+	sliderB = createSlider(0, 255, 255, 1);
 	config.child(sliderB);
 
 
@@ -53,13 +52,13 @@ function draw() {
 	push();
 	translate(width-200, height);
 	stroke(117);
-	branchStatic(150, 80, 80, 80);
+	branchStatic(180, 80, 80, 80);
 	pop();
 
-		push();
-	translate(width-200, height);
+	push();
+	translate(200, height);
 	stroke(117);
-	branchStatic(150, 80, 80, 80);
+	branchStatic(220, 80, 80, 80);
 	pop();
 
 	push();
