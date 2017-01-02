@@ -4,6 +4,7 @@ var sliderG;
 var sliderB;
 
 function setup() {
+	frameRate(3);
 	createCanvas(750,400);
 
 	var config = createDiv('Options');
