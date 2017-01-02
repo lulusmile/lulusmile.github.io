@@ -48,7 +48,7 @@ function draw() {
 	r = sliderR.value();
 	g = sliderG.value();
 	b = sliderB.value();
-
+/*
 	push();
 	translate(width-200, height);
 	stroke(117);
@@ -59,7 +59,7 @@ function draw() {
 	translate(200, height);
 	stroke(117);
 	branchStatic(220, 80, 80, 80);
-	pop();
+	pop();*/
 
 	push();
 	translate(width/2, height);
@@ -96,29 +96,6 @@ function branchDynamic(len, r, g, b) {
 		push();
 		rotate(-angle);
 		branchDynamic(len * 0.67);
-		pop();
-	}
-
-}
-
-function branchStatic(len, r, g, b) {
-	stroke(r, g, b);
-	line(0, 0, 0, -len);
-	translate(0, -len);
-
-	if (len * 0.67 < 4) {
-		stroke(r, g, b);
-		ellipse(0, 0, 1, 1);
-	}
-	
-	if (len > 4) {
-		push();
-		rotate(PI/6);
-		branchStatic(len * 0.67);
-		pop();
-		push();
-		rotate(-PI/6);
-		branchStatic(len * 0.67);
 		pop();
 	}
 
