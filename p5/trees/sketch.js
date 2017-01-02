@@ -1,11 +1,7 @@
-var angle = PI/4;
 var sliderAngle;
 var sliderR;
 var sliderG;
 var sliderB;
-var r;
-var g;
-var b;
 
 function setup() {
 	createCanvas(750,400);
@@ -18,24 +14,20 @@ function setup() {
 	sliderAngle = createSlider(PI/8, PI/4, PI/6, 0.01);
 	config.child(sliderAngle);
 
-
 	var rP = createP('Red Value:');
 	config.child(rP);
 	sliderR = createSlider(0, 255, 255, 1);
 	config.child(sliderR);
 
-	
 	var gP = createP('Green Value:');
 	config.child(gP);
 	sliderG = createSlider(0, 255, 255, 1);
 	config.child(sliderG);
 
-	
 	var bP = createP('Blue Value:');
 	config.child(bP);
 	sliderB = createSlider(0, 255, 255, 1);
 	config.child(sliderB);
-
 
 	config.addClass('config');
 	config.position(0, 0);
@@ -45,58 +37,40 @@ function setup() {
 function draw() {
 	background(51);
 	angle = sliderAngle.value();
-	r = sliderR.value();
-	g = sliderG.value();
-	b = sliderB.value();
-/*
-	push();
-	translate(width-200, height);
-	stroke(117);
-	branchStatic(180, 80, 80, 80);
-	pop();
+	var r = sliderR.value();
+	var g = sliderG.value();
+	var b = sliderB.value();
 
-	push();
-	translate(200, height);
-	stroke(117);
-	branchStatic(220, 80, 80, 80);
-	pop();*/
+	drawTree(110, 110, 110, 200, 200, height, PI/8);
 
-	push();
-	translate(width/2, height);
-	branchDynamic(100, r, g, b);
-	pop();
+	drawTree(110, 110, 110, 200, width-200, height, PI/8);
 
-	push();
-	translate(width-650, height);
-	branchDynamic(50, r, g, b);
-	pop();
-
-	push();
-	translate(width-100, height);
-	branchDynamic(50, r, g, b);
-	pop();
-
+	drawTree(r, g, b, 100, width/2, height, angle);
 }
 
-function branchDynamic(len, r, g, b) {
+function branchDynamic(len, r, g, b, angle) {
+	if (len <= 4) {
+		stroke(r, g, b);
+		ellipse(0, 0, 1, 1);
+		return;
+	}
+	
 	stroke(r, g, b);
 	line(0, 0, 0, -len);
 	translate(0, -len);
+	push();
+	rotate(angle);
+	branchDynamic(len * 0.67, r, g, b, angle);
+	pop();
+	push();
+	rotate(-angle);
+	branchDynamic(len * 0.67, r, g, b, angle);
+	pop();
+}
 
-	if (len * 0.67 < 4) {
-		stroke(r, g, b);
-		ellipse(0, 0, 1, 1);
-	}
-	
-	if (len > 4) {
-		push();
-		rotate(angle);
-		branchDynamic(len * 0.67);
-		pop();
-		push();
-		rotate(-angle);
-		branchDynamic(len * 0.67);
-		pop();
-	}
-
+function drawTree(r, g, b, trunkLength, x, y, angle) {
+	push();
+	translate(x, y);
+	branchDynamic(trunkLength, r, g, b, angle);
+	pop();
 }
