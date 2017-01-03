@@ -1,7 +1,9 @@
 var sliderAngle;
+var sliderTrunk;
 var sliderR;
 var sliderG;
 var sliderB;
+var numTrees;
 
 function setup() {
 	frameRate(3);
@@ -14,6 +16,10 @@ function setup() {
 	// (min, max, default value, increment)
 	sliderAngle = createSlider(PI/8, PI/4, PI/6, 0.01);
 	config.child(sliderAngle);
+	var trunkP = createP('Trunk Length:');
+	config.child(trunkP);
+	sliderTrunk = createSlider(50, 300, 150, 1);
+	config.child(sliderTrunk);
 
 	var rP = createP('Red Value:');
 	config.child(rP);
@@ -37,16 +43,19 @@ function setup() {
 
 function draw() {
 	background(51);
-	angle = sliderAngle.value();
+	var angle = sliderAngle.value();
+	var trunkLength = sliderTrunk.value();
 	var r = sliderR.value();
 	var g = sliderG.value();
 	var b = sliderB.value();
 
-	drawTree(110, 110, 110, 200, 200, height, PI/8);
+	/*drawTree(110, 110, 110, 200, 200, height, PI/8);
 
 	drawTree(110, 110, 110, 200, width-200, height, PI/8);
 
-	drawTree(r, g, b, 100, width/2, height, angle);
+	drawTree(r, g, b, trunkLength, width/2, height, angle);*/
+
+	drawForest(5);
 }
 
 function branchDynamic(len, r, g, b, angle) {
@@ -74,4 +83,10 @@ function drawTree(r, g, b, trunkLength, x, y, angle) {
 	translate(x, y);
 	branchDynamic(trunkLength, r, g, b, angle);
 	pop();
+}
+
+function drawForest(numTrees) {
+	for (var i = 0; i < numTrees; i++) {
+		drawTree(110, 110, 110, random(50,300), random(10, width-10), height, random(PI/8, PI/4));
+	}
 }
