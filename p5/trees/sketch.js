@@ -1,25 +1,40 @@
 var sliderAngle;
-var sliderTrunk;
+var sliderTrunkMin;
+var sliderTrunkMax;
 var sliderR;
 var sliderG;
 var sliderB;
-var numTrees;
+var sliderNumTrees;
+var treeArray;
+var buttonGrowForest;
+var buttonClearForest;
 
 function setup() {
-	frameRate(3);
-	createCanvas(750,400);
+	frameRate(0.5);
+	createCanvas(window.innerWidth, window.innerHeight);
 
-	var config = createDiv('Options');
+	var config = createDiv('Customise Forest');
 
 	var angleP = createP('Angle:');
 	config.child(angleP);
 	// (min, max, default value, increment)
-	sliderAngle = createSlider(PI/8, PI/4, PI/6, 0.01);
+	sliderAngle = createSlider(PI/8, PI/4, PI/8, 0.01);
 	config.child(sliderAngle);
-	var trunkP = createP('Trunk Length:');
-	config.child(trunkP);
-	sliderTrunk = createSlider(50, 300, 150, 1);
-	config.child(sliderTrunk);
+
+	var numTreesP = createP('Trees in Forest:');
+	config.child(numTreesP);
+	sliderNumTrees = createSlider(1, 10, 1, 1);
+	config.child(sliderNumTrees);
+
+	var minTrunkP = createP('Min. Trunk Length:');
+	config.child(minTrunkP);
+	sliderTrunkMin = createSlider(50, 300, 50, 1);
+	config.child(sliderTrunkMin);
+
+	var maxTrunkP = createP('Max Trunk Length:');
+	config.child(maxTrunkP);
+	sliderTrunkMax = createSlider(50, 300, 300, 1);
+	config.child(sliderTrunkMax);
 
 	var rP = createP('Red Value:');
 	config.child(rP);
@@ -36,31 +51,30 @@ function setup() {
 	sliderB = createSlider(0, 255, 255, 1);
 	config.child(sliderB);
 
+	buttonGrowForest = createButton('Grow Forest');
+	config.child(buttonGrowForest);
+
+	buttonClearForest = createButton('Clear Forest');
+	config.child(buttonClearForest);
+
 	config.addClass('config');
 	config.position(0, 0);
-	createCanvas(window.innerWidth, window.innerHeight);
+
+	treeArray = [];
+
+	// reference to the function otherwise it will be mousePressed(null)
+	buttonGrowForest.mousePressed(populateTreeArrayFromSlider);
+
+	buttonClearForest.mousePressed(clearForest);
 }
 
 function draw() {
 	background(51);
-	var angle = sliderAngle.value();
-	var trunkLength = sliderTrunk.value();
-	var r = sliderR.value();
-	var g = sliderG.value();
-	var b = sliderB.value();
-
-	/*drawTree(110, 110, 110, 200, 200, height, PI/8);
-
-	drawTree(110, 110, 110, 200, width-200, height, PI/8);
-
-	drawTree(r, g, b, trunkLength, width/2, height, angle);*/
-
-	drawForest(5);
+	drawForest();
 }
 
-function branchDynamic(len, r, g, b, angle) {
+function branch(len, r, g, b, angle) {
 	if (len <= 4) {
-		stroke(r, g, b);
 		ellipse(0, 0, 1, 1);
 		return;
 	}
@@ -70,23 +84,47 @@ function branchDynamic(len, r, g, b, angle) {
 	translate(0, -len);
 	push();
 	rotate(angle);
-	branchDynamic(len * 0.67, r, g, b, angle);
+	branch(len * 0.67, r, g, b, angle);
 	pop();
 	push();
 	rotate(-angle);
-	branchDynamic(len * 0.67, r, g, b, angle);
+	branch(len * 0.67, r, g, b, angle);
 	pop();
 }
 
 function drawTree(r, g, b, trunkLength, x, y, angle) {
 	push();
 	translate(x, y);
-	branchDynamic(trunkLength, r, g, b, angle);
+	branch(trunkLength, r, g, b, angle);
 	pop();
 }
 
-function drawForest(numTrees) {
-	for (var i = 0; i < numTrees; i++) {
-		drawTree(110, 110, 110, random(50,300), random(10, width-10), height, random(PI/8, PI/4));
+function drawForest() {
+	for (var i = 0; i < treeArray.length; i++) {
+		var tree = treeArray[i];
+		drawTree(tree[0], tree[1], tree[2], tree[3], tree[4], tree[5], tree[6]);
 	}
 }
+
+function populateTreeArrayFromSlider() {
+	var angle = sliderAngle.value();
+	var numTrees = sliderNumTrees.value();
+	var minTrunkLength = sliderTrunkMin.value();
+	var maxTrunkLength = sliderTrunkMax.value();
+	var r = sliderR.value();
+	var g = sliderG.value();
+	var b = sliderB.value();
+
+	for (var j = 0; j < numTrees; j++) {
+		treeArray.push([r, g, b, random(minTrunkLength, maxTrunkLength), random(10, width-10), height, angle]);
+	}
+}
+
+function clearForest () {
+	treeArray.length = 0;
+}
+
+/*
+add a preview swatch for the rgb
+fix buttons eugh
+*/
