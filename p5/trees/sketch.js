@@ -83,29 +83,39 @@ function draw() {
 	drawForest();
 }
 
-function branch(len, r, g, b, angle) {
+function branch(len, r, g, b, angle, trunkThickness) {
 	if (len <= 6) {
 		ellipse(0, 0, 1, 1);
 		return;
 	}
 	
+	strokeWeight(trunkThickness);
 	stroke(r, g, b);
 	line(0, 0, 0, -len);
 	translate(0, -len);
 	push();
 	rotate(angle);
-	branch(len * 0.67, r, g, b, angle);
+	branch(len * 0.67, r, g, b, angle, trunkThickness);
 	pop();
 	push();
 	rotate(-angle);
-	branch(len * 0.67, r, g, b, angle);
+	branch(len * 0.67, r, g, b, angle, trunkThickness);
 	pop();
 }
 
 function drawTree(r, g, b, trunkLength, x, y, angle) {
+	var trunkThickness;
+	if (trunkLength <= 100) {
+		trunkThickness = 1;
+	} else if (trunkLength <= 200) {
+		trunkThickness = 1.5;
+	} else {
+		trunkThickness = 2;
+	}
+
 	push();
 	translate(x, y);
-	branch(trunkLength, r, g, b, angle);
+	branch(trunkLength, r, g, b, angle, trunkThickness);
 	pop();
 }
 
@@ -138,7 +148,7 @@ function drawPreviewSwatch (r, g, b) {
 	stroke(r, g, b);
 	fill(r, g, b);
 
-	ellipse(50, 50, 50, 50);
+	ellipse(width - 50, 50, 50, 50);
 
 }
 
