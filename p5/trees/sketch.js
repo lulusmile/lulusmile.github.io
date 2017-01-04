@@ -51,30 +51,40 @@ function setup() {
 	sliderB = createSlider(0, 255, 255, 1);
 	config.child(sliderB);
 
-	buttonGrowForest = createButton('Grow Forest');
-	config.child(buttonGrowForest);
+	var buttons = createDiv('');
+	config.child(buttons);
 
-	buttonClearForest = createButton('Clear Forest');
-	config.child(buttonClearForest);
+	buttonGrowForest = createButton('Add Trees');
+	buttons.child(buttonGrowForest);
+
+	buttonClearForest = createButton('Clear All');
+	buttons.child(buttonClearForest);
 
 	config.addClass('config');
 	config.position(0, 0);
+
+	buttons.addClass('buttons');
 
 	treeArray = [];
 
 	// reference to the function otherwise it will be mousePressed(null)
 	buttonGrowForest.mousePressed(populateTreeArrayFromSlider);
-
 	buttonClearForest.mousePressed(clearForest);
 }
 
 function draw() {
 	background(51);
+
+	var r = sliderR.value();
+	var g = sliderG.value();
+	var b = sliderB.value();
+
+	drawPreviewSwatch(r, g, b);
 	drawForest();
 }
 
 function branch(len, r, g, b, angle) {
-	if (len <= 4) {
+	if (len <= 6) {
 		ellipse(0, 0, 1, 1);
 		return;
 	}
@@ -124,7 +134,15 @@ function clearForest () {
 	treeArray.length = 0;
 }
 
+function drawPreviewSwatch (r, g, b) {
+	stroke(r, g, b);
+	fill(r, g, b);
+
+	ellipse(50, 50, 50, 50);
+
+}
+
 /*
 add a preview swatch for the rgb
-fix buttons eugh
+add randomise forest button
 */
