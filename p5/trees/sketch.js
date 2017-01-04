@@ -8,6 +8,8 @@ var sliderNumTrees;
 var treeArray;
 var buttonGrowForest;
 var buttonClearForest;
+var buttonRandomiseForest;
+var randomAngleCheckbox;
 
 function setup() {
 	frameRate(0.5);
@@ -60,16 +62,30 @@ function setup() {
 	buttonClearForest = createButton('Clear All');
 	buttons.child(buttonClearForest);
 
+	var randomiseButton = createDiv('');
+	config.child(randomiseButton);
+
+	buttonRandomiseForest = createButton('Randomise Forest');
+	randomiseButton.child(buttonRandomiseForest);
+
 	config.addClass('config');
 	config.position(0, 0);
 
-	buttons.addClass('buttons');
+	buttons.addClass('adjacentButtons');
+
+	randomiseButton.addClass('singleButton');
+
+	/*var checkboxHolder = createDiv('');
+	config.child(checkboxHolder);
+	randomAngleCheckbox = createCheckbox('Randomise Branches');
+	checkboxHolder.child(randomAngleCheckbox);*/
 
 	treeArray = [];
 
 	// reference to the function otherwise it will be mousePressed(null)
 	buttonGrowForest.mousePressed(populateTreeArrayFromSlider);
 	buttonClearForest.mousePressed(clearForest);
+	buttonRandomiseForest.mousePressed(drawRandomForest);
 }
 
 function draw() {
@@ -88,6 +104,14 @@ function branch(len, r, g, b, angle, trunkThickness) {
 		ellipse(0, 0, 1, 1);
 		return;
 	}
+
+	var rightBranchModifier = 0.67;
+	var leftBranchModifier = 0.67;
+
+	/*if (randomAngleCheckbox.checked(true)) {
+		rightBranchModifier = random(0.5, 0.66);
+		leftBranchModifier = random(0.5, 0.66);
+	}*/
 	
 	strokeWeight(trunkThickness);
 	stroke(r, g, b);
@@ -95,11 +119,11 @@ function branch(len, r, g, b, angle, trunkThickness) {
 	translate(0, -len);
 	push();
 	rotate(angle);
-	branch(len * 0.67, r, g, b, angle, trunkThickness);
+	branch(len * rightBranchModifier, r, g, b, angle, trunkThickness);
 	pop();
 	push();
 	rotate(-angle);
-	branch(len * 0.67, r, g, b, angle, trunkThickness);
+	branch(len * leftBranchModifier, r, g, b, angle, trunkThickness);
 	pop();
 }
 
@@ -152,7 +176,18 @@ function drawPreviewSwatch (r, g, b) {
 
 }
 
+function drawRandomForest () {
+	clearForest();
+	var numTrees = random(5, 15);
+	 for (var j = 0; j < numTrees; j++) {
+			treeArray.push([random(0, 255), random(0, 255), random(0, 255), random(50, 300), random(10, width-10), height, random(PI/8, PI/4)]);
+	}
+}
+
 /*
-add a preview swatch for the rgb
+how to move preview swatch dynamicly under sliders
 add randomise forest button
+check box to randomise angles
+check box to have variable width dependent on length vs static width of 1
+random branch length not just previous length * 0.67
 */
