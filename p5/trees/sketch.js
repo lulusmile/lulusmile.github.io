@@ -75,10 +75,10 @@ function setup() {
 
 	randomiseButton.addClass('singleButton');
 
-	/*var checkboxHolder = createDiv('');
+	var checkboxHolder = createDiv('');
 	config.child(checkboxHolder);
 	randomAngleCheckbox = createCheckbox('Randomise Branches');
-	checkboxHolder.child(randomAngleCheckbox);*/
+	checkboxHolder.child(randomAngleCheckbox);
 
 	treeArray = [];
 
@@ -108,10 +108,10 @@ function branch(len, r, g, b, angle, trunkThickness) {
 	var rightBranchModifier = 0.67;
 	var leftBranchModifier = 0.67;
 
-	/*if (randomAngleCheckbox.checked(true)) {
+	if (randomAngleCheckbox.checked()) {
 		rightBranchModifier = random(0.5, 0.66);
 		leftBranchModifier = random(0.5, 0.66);
-	}*/
+	}
 	
 	strokeWeight(trunkThickness);
 	stroke(r, g, b);
