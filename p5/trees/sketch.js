@@ -20,7 +20,7 @@ function setup() {
 	var angleP = createP('Angle:');
 	config.child(angleP);
 	// (min, max, default value, increment)
-	sliderAngle = createSlider(PI/8, PI/6, PI/s, 0.01);
+	sliderAngle = createSlider(PI/8, PI/6, PI/8, 0.01);
 	config.child(sliderAngle);
 
 	var numTreesP = createP('Trees in Forest:');
