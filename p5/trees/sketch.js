@@ -20,7 +20,7 @@ function setup() {
 	var angleP = createP('Angle:');
 	config.child(angleP);
 	// (min, max, default value, increment)
-	sliderAngle = createSlider(PI/8, PI/4, PI/8, 0.01);
+	sliderAngle = createSlider(PI/8, PI/6, PI/s, 0.01);
 	config.child(sliderAngle);
 
 	var numTreesP = createP('Trees in Forest:');
@@ -30,12 +30,12 @@ function setup() {
 
 	var minTrunkP = createP('Min. Trunk Length:');
 	config.child(minTrunkP);
-	sliderTrunkMin = createSlider(50, 300, 50, 1);
+	sliderTrunkMin = createSlider(50, 250, 50, 1);
 	config.child(sliderTrunkMin);
 
 	var maxTrunkP = createP('Max Trunk Length:');
 	config.child(maxTrunkP);
-	sliderTrunkMax = createSlider(50, 300, 300, 1);
+	sliderTrunkMax = createSlider(50, 250, 250, 1);
 	config.child(sliderTrunkMax);
 
 	var rP = createP('Red Value:');
@@ -55,16 +55,13 @@ function setup() {
 
 	var buttons = createDiv('');
 	config.child(buttons);
-
 	buttonGrowForest = createButton('Add Trees');
 	buttons.child(buttonGrowForest);
-
 	buttonClearForest = createButton('Clear All');
 	buttons.child(buttonClearForest);
 
 	var randomiseButton = createDiv('');
 	config.child(randomiseButton);
-
 	buttonRandomiseForest = createButton('Randomise Forest');
 	randomiseButton.child(buttonRandomiseForest);
 
@@ -100,8 +97,9 @@ function draw() {
 }
 
 function branch(len, r, g, b, angle, trunkThickness) {
+	// console.log('entered branch function');
 	if (len <= 6) {
-		ellipse(0, 0, 1, 1);
+		// ellipse(0, 0, 1, 1);
 		return;
 	}
 
@@ -109,11 +107,14 @@ function branch(len, r, g, b, angle, trunkThickness) {
 	var leftBranchModifier = 0.67;
 
 	if (randomAngleCheckbox.checked()) {
+		console.log('entered random angle checkbox checked');
 		rightBranchModifier = random(0.5, 0.66);
 		leftBranchModifier = random(0.5, 0.66);
 	}
 	
 	strokeWeight(trunkThickness);
+	trunkThickness *= 0.75;
+
 	stroke(r, g, b);
 	line(0, 0, 0, -len);
 	translate(0, -len);
@@ -130,11 +131,11 @@ function branch(len, r, g, b, angle, trunkThickness) {
 function drawTree(r, g, b, trunkLength, x, y, angle) {
 	var trunkThickness;
 	if (trunkLength <= 100) {
-		trunkThickness = 1;
+		trunkThickness = 4;
 	} else if (trunkLength <= 200) {
-		trunkThickness = 1.5;
+		trunkThickness = 5;
 	} else {
-		trunkThickness = 2;
+		trunkThickness = 6;
 	}
 
 	push();
@@ -178,7 +179,7 @@ function drawPreviewSwatch (r, g, b) {
 
 function drawRandomForest () {
 	clearForest();
-	var numTrees = random(5, 15);
+	var numTrees = random(5, 12);
 	 for (var j = 0; j < numTrees; j++) {
 			treeArray.push([random(0, 255), random(0, 255), random(0, 255), random(50, 300), random(10, width-10), height, random(PI/8, PI/4)]);
 	}
