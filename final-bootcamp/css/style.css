@@ -1,0 +1,163 @@
+/* This is where we will be writing all of your styles */
+/* @import used in CSS standard <style> used in HTML */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto:400,700&display=swap');
+
+a {
+  color: #998023;
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Roboto Condensed", sans-serif;
+  border: 2px solid #998023;
+  background-color: pink;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+h2 {
+  font-weight: normal;
+  font-style: italic;
+  font-size: 30px;
+}
+
+html {
+		box-sizing: border-box;
+	}
+
+	*, *:before, *:after {
+		box-sizing: inherit;
+	}
+
+	body {
+		font-family: 'Montserrat', sans-serif;
+		margin:0;
+	}
+
+	.fixed-content-left {
+		position: fixed;
+		height: 100vh;
+		width: 40%;
+		background-image: url('http://images.squarespace-cdn.com/content/v1/5c8489b28d97407b88612fba/1554845227984-Z8WZF0JNY41VD6KB3NCX/ke17ZwdGBToddI8pDm48kGaAu8BCDc8z1dMS1to8zv9Zw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzh220zNj_1tb8bnZhxFlphznZeGdQFnKfN6LyKM1J-ma_FfmdmZouFG8u1Asxi0Ek/foggy-trees_vertical-web.jpg'); /* fallback */
+		background-image: linear-gradient(rgba(255,0,0,0.5),rgba(255,100,10,0.5)), url('http://images.squarespace-cdn.com/content/v1/5c8489b28d97407b88612fba/1554845227984-Z8WZF0JNY41VD6KB3NCX/ke17ZwdGBToddI8pDm48kGaAu8BCDc8z1dMS1to8zv9Zw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzh220zNj_1tb8bnZhxFlphznZeGdQFnKfN6LyKM1J-ma_FfmdmZouFG8u1Asxi0Ek/foggy-trees_vertical-web.jpg');
+		display: flex;
+		align-items: center;
+	}
+
+	.content-right {
+		float: right;
+		width: 60%;
+	}
+
+	.summary-centre-left {
+		text-align: center;
+		max-width: 70%;
+		color: white;
+		margin: auto;
+	}
+
+	.col1 {
+		float: left;
+		width: 30%;
+	}
+
+	.col2 {
+		float: left;
+		width: 70%;
+	}
+
+	.row {
+		/*background-color: orange;*/
+		overflow: auto;
+		margin-bottom: 10px;
+	}
+
+	h2 {
+		font-size: 18px;
+		text-transform: uppercase;
+		padding: 0;
+		margin: 0;
+	}
+
+	h3 {
+		font-size: 13px;
+		padding: 0;
+		margin: 0;
+	}
+
+	span.date {
+		font-weight: 200;
+		font-size: 15px;
+		margin-top: 10px;
+	}
+
+	ul {
+		font-size: 13px;
+	}
+
+	a,a:visited {
+		color:#000;
+		text-decoration: none;
+	}
+
+	a:hover,.heading {
+		color: #E69739;
+	}
+
+	img {
+		margin: 10px 5px 5px 5px;
+	}
+
+	img:hover {
+		border-radius: 55%;
+		background: #E69739;
+	}
+
+	.logo {
+		height:22px;
+		width:22px;
+
+	}
+
+	@media only screen and (max-width: 1100px) {
+		.col1 {
+			width:100%;
+		}
+		.col2 {
+			width:100%;
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+
+		.fixed-content-left {
+			position: relative;
+			height: 40vh;
+			width: 100%;
+			background-image: url('http://images.squarespace-cdn.com/content/v1/5c8489b28d97407b88612fba/1554845227984-Z8WZF0JNY41VD6KB3NCX/ke17ZwdGBToddI8pDm48kGaAu8BCDc8z1dMS1to8zv9Zw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzh220zNj_1tb8bnZhxFlphznZeGdQFnKfN6LyKM1J-ma_FfmdmZouFG8u1Asxi0Ek/foggy-trees_vertical-web.jpg');
+			background-image: linear-gradient(rgba(255,0,0,0.5),rgba(255,100,10,0.5)), url('http://images.squarespace-cdn.com/content/v1/5c8489b28d97407b88612fba/1554845227984-Z8WZF0JNY41VD6KB3NCX/ke17ZwdGBToddI8pDm48kGaAu8BCDc8z1dMS1to8zv9Zw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzh220zNj_1tb8bnZhxFlphznZeGdQFnKfN6LyKM1J-ma_FfmdmZouFG8u1Asxi0Ek/foggy-trees_vertical-web.jpg');
+		}
+
+		.content-right {
+			float: right;
+			position: absolute;
+			width: 100%;
+		}
+
+		.tab {
+			position:static;
+		}
+	}
+
+	@media only screen and (max-width: 480px) {
+		.logo {
+			height:44px;
+			width:44px;
+		}
+
+		img {
+			margin:14px 7px 7px 7px;
+		}
+	}
